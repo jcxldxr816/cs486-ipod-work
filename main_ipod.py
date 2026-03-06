@@ -44,6 +44,7 @@ warnings.filterwarnings("ignore")
 def main(args):
     misc.init_distributed_mode(args)
     device = torch.device(args.device)
+    #device = "cuda"
 
     # fix the seed for reproducibility
     seed = args.seed + misc.get_rank()
@@ -55,7 +56,8 @@ def main(args):
     global_rank = misc.get_rank()
 
     # define the model
-    model = NUMCC(args=args)
+    #model = NUMCC(args=args)
+    model = IPoD_transfomer(args=args)
     model.to(device)
     model_without_ddp = model
 
@@ -133,7 +135,10 @@ def main(args):
     output_dir = os.path.join('experiments', args.exp_name)
     Path(os.path.join(output_dir, 'viz')).mkdir(parents= True, exist_ok=True)
 
-    print(f"Start training for {args.epochs} epochs")
+    if args.run_viz:
+        print(f"Running inference/visualization on pretrained model")
+    else:
+        print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
 
     if args.run_viz:

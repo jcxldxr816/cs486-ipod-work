@@ -1,15 +1,12 @@
 PYTHONHASHSEED=42 CUDA_LAUNCH_BLOCKING=1 HYDRA_FULL_ERROR=1 \
-torchrun --nproc_per_node 1 main_ipod.py \
---batch_size 8 \
---num_workers 8 \
+torchrun --nproc_per_node 2 main_ipod.py \
+--eval_batch_size 1 \
+--num_eval_workers 2 \
 --exp_name IPoD_eval \
---train_epoch_len_multiplier 4 \
---accum_iter 16 \
---holdout_categories \
+--co3d_path ~/research/IPoD/dataset \
+--one_class chair \
 --n_queries 2048 \
---n_query_udf 81960 \
---val_every 5 \
---viz_every 100 \
---run_viz \
---resume ./path_to_ckpt \
+--n_query_udf 16000 \
+--run_val \
+--resume ~/research/IPoD/ckpts/ipod_transformer_co3d.pth \
 --save_pc

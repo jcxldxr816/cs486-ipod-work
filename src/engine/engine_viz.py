@@ -89,10 +89,10 @@ def run_viz(model, data_loader, device, args, epoch):
 
                 if args.distributed:
                     pred = model.module.decoderl2(cur_query_xyz, seen_points, valid_seen, fea, up_grid_fea, custom_centers = None)
-                    pred = model.module.fc_out(pred)
+                    pred = model.module.fc_out2(pred)
                 else:
                     pred = model.decoderl2(cur_query_xyz, seen_points, valid_seen, fea, up_grid_fea, custom_centers = None)
-                    pred = model.fc_out(pred)
+                    pred = model.fc_out2(pred)
 
             cur_occupy_out = pred[..., 0]
             cur_color_out = pred[..., 1:].reshape((-1, 3, 256)).max(dim=2)[1] / 255.0
@@ -289,10 +289,10 @@ def run_viz_udf(model, data_loader, device, args, epoch):
 
                 if args.distributed:
                     pred = model.module.decoderl2(cur_query_xyz, seen_points, valid_seen, fea, up_grid_fea, custom_centers = None)
-                    pred = model.module.fc_out(pred)
+                    pred = model.module.fc_out2(pred)
                 else:
                     pred = model.decoderl2(cur_query_xyz, seen_points, valid_seen, fea, up_grid_fea, custom_centers = None)
-                    pred = model.fc_out(pred)
+                    pred = model.fc_out2(pred)
 
             max_dist = 0.5
             pred_udf = F.relu(pred[:,:,:1]).reshape((-1, 1)) # nQ, 1
@@ -311,10 +311,10 @@ def run_viz_udf(model, data_loader, device, args, epoch):
                 with torch.no_grad():
                     if args.distributed:
                         pred = model.module.decoderl2(points, seen_points, valid_seen, fea, up_grid_fea)
-                        pred = model.module.fc_out(pred)
+                        pred = model.module.fc_out2(pred)
                     else:
                         pred = model.decoderl2(points, seen_points, valid_seen, fea, up_grid_fea)
-                        pred = model.fc_out(pred)
+                        pred = model.fc_out2(pred)
 
                 cur_color_out = pred[:,:,1:].reshape((-1, 3, 256)).max(dim=2)[1] / 255.0
                 cur_color_out = cur_color_out.detach().squeeze(0).cpu().numpy()
