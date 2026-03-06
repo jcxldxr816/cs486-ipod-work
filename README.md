@@ -1,3 +1,6 @@
+# From James
+This repo is a clone of the original, with a few minor changes to work with Truman's ice server. I had a few issues when getting this repo set up and haven't fully tested the functionality since. --run_val seems to work, but I can't guarantee everything works as it did when I originally tested the project (see `./experiments/IPoD_eval/viz`).
+
 # IPoD: <u>I<u>mplicit Field Learning with <u>P<u>oint <u>D<u>iffusion
 > IPoD: Implicit Field Learning with Point Diffusion for Generalizable 3D Object Reconstruction from Single RGB-D Images<br />
 > [GAP Lab](https://gaplab.cuhk.edu.cn/), [Yushuang Wu](https://scholar.google.com/citations?hl=zh-CN&user=x5gpN0sAAAAJ)
